@@ -15,10 +15,15 @@ for file in filepaths:
     # Create an instance of a file excluding directory and extension.
     filename = Path(file).stem
     # Extract from a filename only an invoice number
-    invoice_nr = filename.split("-")[0]
+    invoice_nr, date = filename.split("-")
     # Select a font for pdf
     pdf.set_font(family="Times", size=16, style="B")
+    # Create a cell for a new input, ln=1 means create a breakline
+    pdf.cell(w=50, h=10, txt=f"Invoice number: {invoice_nr}", ln=1)
+
+    # Create a pdf file in PDFs directory using filename and f-string
+    pdf.set_font(family="Times", size=16, style="B")
     # Create a cell for a new input
-    pdf.cell(w=50, h=16, txt=f"Invoice number: {invoice_nr}")
+    pdf.cell(w=50, h=10, txt=f"Date: {date}")
     # Create a pdf file in PDFs directory using filename and f-string
     pdf.output(f"PDFs/{filename}.pdf")
